@@ -1,6 +1,7 @@
 package com.customermanagement.app.service;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -8,10 +9,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.customermanagement.app.entity.Customer;
+import com.customermanagement.app.entity.Role;
 import com.customermanagement.app.exception.UserDetailsNotValidException;
 import com.customermanagement.app.helper.Helper;
 import com.customermanagement.app.model.AuthenticationResponse;
 import com.customermanagement.app.repository.CustomerRespository;
+import com.customermanagement.app.repository.RoleRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -23,6 +26,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
 	@Autowired
 	private CustomerRespository customerRespository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	@Autowired
 	private JwtTokenService jwtTokenService;
@@ -52,10 +58,56 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		
 		if (customer == null) {
 			
-			throw new UserDetailsNotValidException("The User details are not valid !! Please recheck and try again!!!");
+			throw new UserDetailsNotValidException("The customer details are not valid !! Please recheck and try again!!!");
+		}
+		
+		Set<Role> roles = customer.getRoles();
+		
+		//In case user is not giving any roles then new default role will be created and added
+		if(roles == null || roles.isEmpty()) {
+			
+			Optional<Role> opt = roleRepository.findByRoleName("ROLE_USER");
+			
+			//If already role exists then taht role will be to user as default
+			if (opt.isPresent()) {
+				
+				Role role = opt.get();
+				roles.add(role);
+			}
+			
+			//If no role exists then new role will be created and will be added to user as default role
+			else {
+				
+				Role role = new Role();
+		        role.setRoleId(helper.createRandomStringId());
+		        role.setRoleName("ROLE_USER");
+		        roles.add(role);
+			}   
+	    }
+		else {
+			
+			//setting common values and save the data
+			
+			for (Role role : roles) {
+				
+				Optional<Role> opt = roleRepository.findByRoleName(role.getRoleName());
+				//if role is already present then updating it to avoid duplicate object
+				if (opt.isPresent()) {
+					
+					Role existingRole = opt.get();
+					role.setRoleId(existingRole.getRoleId());
+					role.setRoleName(existingRole.getRoleName());
+				}
+				else {
+					
+					role.setRoleId(helper.createRandomStringId());
+					role.setRoleName(role.getRoleName());
+				}
+			}
 		}
 		
 		// setting all data with customer and save
+		customer.setRoles(roles);
 		customer.setCustomerId(helper.createRandomStringId());
 		customer.setPassword(passwordEncoder.encode(customer.getPassword()));
 		Customer registeredCustomer = customerRespository.save(customer);

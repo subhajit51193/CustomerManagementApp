@@ -61,10 +61,11 @@ public class Helper {
 				.lastName(customer.getLastName())
 				.city(customer.getCity())
 				.state(customer.getState())
-				.phone(customer.getState())
+				.phone(customer.getPhone())
 				.address(customer.getAddress())
-				.state(customer.getStreet())
+				.street(customer.getStreet())
 				.token(accessToken)
+				.roles(customer.getRoles())
 				.build();
 		
 		return authenticationResponse;
