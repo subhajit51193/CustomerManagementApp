@@ -1,5 +1,6 @@
 package com.customermanagement.app.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,4 +53,5 @@ public class CustomerController {
 		CustomerDTO updated = customerService.updateCustomerDetails(id, customer);
 		return new ResponseEntity<CustomerDTO>(updated,HttpStatus.ACCEPTED);
 	}
+	
 }

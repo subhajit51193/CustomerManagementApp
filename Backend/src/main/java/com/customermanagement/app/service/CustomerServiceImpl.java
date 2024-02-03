@@ -196,6 +196,8 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 			throw new CustomerNotFoundException("Customer Not Found");
 		}
 		Customer foundCustomer = opt.get();
+		// Remove roles from the customer_roles table
+	    foundCustomer.getRoles().clear();
 		customerRespository.delete(foundCustomer);
 		return "Customer details Deleted";
 	}
