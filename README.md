@@ -13,6 +13,7 @@ them parmanently
 - Get details
 - Update details
 - Delete details
+- Get all datas based on pagenation and sorting
 - Exception handling
 - Role based authorization
 - Token based authentication
