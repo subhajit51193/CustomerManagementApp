@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.customermanagement.app.entity.Customer;
@@ -84,5 +85,20 @@ public class AdminController {
 		
 		String res = customerService.deleteCustomer(id);
 		return new ResponseEntity<String>(res,HttpStatus.ACCEPTED);
+	}
+	
+	/*
+	 * This API used by customers with Admin_role to get details with pagination and sorting
+	 * 
+	 * @param: int -> No of pages
+	 * @param: int -> size of data
+	 * @param: String -> sortBy parameter
+	 * 
+	 * @return: ResponseEntity -> Containing customized response
+	 */
+	@GetMapping("/allCustom")
+	public ResponseEntity<List<CustomerDTO>> getAllCustomersCustomHandler(@RequestParam int page,@RequestParam int size,@RequestParam String sortBy){
+		List<CustomerDTO> list = customerService.getAllCustomersSorted(page, size, sortBy);
+		return new ResponseEntity<List<CustomerDTO>>(list,HttpStatus.OK);
 	}
 }

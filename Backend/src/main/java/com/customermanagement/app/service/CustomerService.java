@@ -15,4 +15,6 @@ public interface CustomerService {
 	public List<CustomerDTO> getAllCustomers();
 	
 	public String deleteCustomer(String id)throws CustomerNotFoundException;
+	
+	public List<CustomerDTO>getAllCustomersSorted(int page,int size,String sortBy);
 }

@@ -7,6 +7,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Service;
 import com.customermanagement.app.entity.Customer;
 import com.customermanagement.app.entity.Role;
 import com.customermanagement.app.exception.CustomerNotFoundException;
+import com.customermanagement.app.helper.Helper;
 import com.customermanagement.app.model.CustomerDTO;
 import com.customermanagement.app.repository.CustomerRespository;
 
@@ -26,6 +30,9 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 
 	@Autowired
 	private CustomerRespository customerRespository;
+	
+	@Autowired
+	private Helper helper;
 	
 	/*
 	 * This method is by spring to loading user details based on provided
@@ -79,18 +86,7 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 			throw new CustomerNotFoundException("Customer Not Found");
 		}
 		Customer customer = opt.get();
-		CustomerDTO dto = CustomerDTO.builder()
-				.id(customer.getCustomerId())
-				.address(customer.getAddress())
-				.city(customer.getCity())
-				.email(customer.getEmail())
-				.firstName(customer.getFirstName())
-				.lastName(customer.getLastName())
-				.phone(customer.getPhone())
-				.state(customer.getState())
-				.street(customer.getStreet())
-				.roles(customer.getRoles())
-				.build();
+		CustomerDTO dto = helper.convertToDto(customer);
 		return dto;
 	}
 
@@ -133,18 +129,7 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 			foundCustomer.setState(customer.getState());
 		}
 		Customer updatedCustomer = customerRespository.save(foundCustomer);
-		CustomerDTO dto = CustomerDTO.builder()
-				.id(updatedCustomer.getCustomerId())
-				.address(updatedCustomer.getAddress())
-				.city(updatedCustomer.getCity())
-				.email(updatedCustomer.getEmail())
-				.firstName(updatedCustomer.getFirstName())
-				.lastName(updatedCustomer.getLastName())
-				.phone(updatedCustomer.getPhone())
-				.state(updatedCustomer.getState())
-				.street(updatedCustomer.getStreet())
-				.roles(updatedCustomer.getRoles())
-				.build();
+		CustomerDTO dto = helper.convertToDto(updatedCustomer);
 		return dto;
 	}
 
@@ -161,18 +146,7 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 		
 		for (Customer customer: list) {
 			
-			CustomerDTO dto = CustomerDTO.builder()
-					.id(customer.getCustomerId())
-					.address(customer.getAddress())
-					.city(customer.getCity())
-					.email(customer.getEmail())
-					.firstName(customer.getFirstName())
-					.lastName(customer.getLastName())
-					.phone(customer.getPhone())
-					.state(customer.getState())
-					.street(customer.getStreet())
-					.roles(customer.getRoles())
-					.build();
+			CustomerDTO dto = helper.convertToDto(customer);
 			dtoList.add(dto);
 		}
 		return dtoList;
@@ -200,6 +174,31 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 	    foundCustomer.getRoles().clear();
 		customerRespository.delete(foundCustomer);
 		return "Customer details Deleted";
+	}
+
+	
+	/*
+	 * Get all customers with pagination and sorting
+	 * 
+	 * @param: int -> pages
+	 * @param: int -> size of data
+	 * @param: String -> sorting parameter
+	 * 
+	 * @return: List<Employees> -> returns list of all customers that follow all criteria
+	 */
+	@Override
+	public List<CustomerDTO> getAllCustomersSorted(int page,int size, String sortBy) {
+		
+		PageRequest pageable = PageRequest.of(page, size,Sort.by(sortBy));
+		Page<Customer> customerPage = customerRespository.findAll(pageable);
+		List<Customer> list = customerPage.getContent();
+		
+		List<CustomerDTO> res = new ArrayList<>();
+		for (Customer customer: list) {
+			CustomerDTO dto = helper.convertToDto(customer);
+			res.add(dto);
+		}
+		return res;
 	}
 
 }

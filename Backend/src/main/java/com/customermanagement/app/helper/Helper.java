@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.customermanagement.app.entity.Customer;
 import com.customermanagement.app.model.AuthenticationResponse;
+import com.customermanagement.app.model.CustomerDTO;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,6 +24,23 @@ public class Helper {
 		
 		String newStringId = UUID.randomUUID().toString();
 		return newStringId;
+	}
+	
+	public CustomerDTO convertToDto(Customer customer) {
+		
+		CustomerDTO dto = CustomerDTO.builder()
+				.id(customer.getCustomerId())
+				.address(customer.getAddress())
+				.city(customer.getCity())
+				.email(customer.getEmail())
+				.firstName(customer.getFirstName())
+				.lastName(customer.getLastName())
+				.phone(customer.getPhone())
+				.state(customer.getState())
+				.street(customer.getStreet())
+				.roles(customer.getRoles())
+				.build();
+		return dto;
 	}
 	
 	/*
