@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
-/*
+/**
  * This class contains all the methods related to JwtToken
  */
 @Service
@@ -24,7 +24,7 @@ public class JwtTokenService {
 	private JwtDecoder decoder;
 	
 	
-	/*
+	/**
 	 * Generates AccessToken
 	 * 
 	 * @param email -> email of user
@@ -44,7 +44,7 @@ public class JwtTokenService {
 		return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 	}
 	
-	/*
+	/**
 	 * Generates RefreshToken
 	 * 
 	 * @param email -> email of user
@@ -64,7 +64,7 @@ public class JwtTokenService {
 		return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 	}
 	
-	/*
+	/**
 	 * Extract email from token
 	 * 
 	 * @param String -> JWT token

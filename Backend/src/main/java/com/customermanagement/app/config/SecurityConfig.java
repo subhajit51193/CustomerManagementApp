@@ -16,7 +16,7 @@ import com.customermanagement.app.filter.CustomerEligibilityFilter;
 
 /**
  * This class contains security configuration of the application
- **/
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

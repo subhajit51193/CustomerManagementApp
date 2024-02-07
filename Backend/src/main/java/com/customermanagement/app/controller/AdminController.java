@@ -32,7 +32,7 @@ public class AdminController {
 	     return "Welcome to the home page! Captain!!!" + authentication.getName();
 	}
 	
-	/*
+	/**
 	 * This API used by customers with Admin_role to get any customer's personal details
 	 * 
 	 * @param: String -> CustomerId of whose details is required
@@ -46,7 +46,7 @@ public class AdminController {
 		return new ResponseEntity<CustomerDTO>(dto,HttpStatus.OK);
 	}
 	
-	/*
+	/**
 	 * This API used by customers with admin_role to get all customer details
 	 * 
 	 * @return: ResponseEntity -> Containing customized response
@@ -58,7 +58,7 @@ public class AdminController {
 		return new ResponseEntity<List<CustomerDTO>>(list,HttpStatus.OK);
 	}
 	
-	/*
+	/**
 	 * This API used by customers with Admin_role to update any customer's personal details
 	 * 
 	 * @param: String -> CustomerId of whose details is required
@@ -73,7 +73,7 @@ public class AdminController {
 		return new ResponseEntity<CustomerDTO>(dto,HttpStatus.ACCEPTED);
 	}
 	
-	/*
+	/**
 	 * This API used by customers with Admin_role to delete any customer details
 	 * 
 	 * @param: String -> CustomerId of whose details is required to be deleted
@@ -87,7 +87,7 @@ public class AdminController {
 		return new ResponseEntity<String>(res,HttpStatus.ACCEPTED);
 	}
 	
-	/*
+	/**
 	 * This API used by customers with Admin_role to get details with pagination and sorting
 	 * 
 	 * @param: int -> No of pages

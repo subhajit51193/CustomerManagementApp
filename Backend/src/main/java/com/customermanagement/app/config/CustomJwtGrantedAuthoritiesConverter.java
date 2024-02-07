@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import com.customermanagement.app.entity.Customer;
 import com.customermanagement.app.entity.Role;
 import com.customermanagement.app.repository.CustomerRespository;
-/*
+/**
  * This converter is responsible for extracting authorities (roles) from a 
  * JWT (JSON Web Token) and returning them as a collection of GrantedAuthority instances.
  */

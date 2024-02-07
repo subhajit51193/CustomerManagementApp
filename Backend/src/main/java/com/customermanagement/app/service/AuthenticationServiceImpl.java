@@ -39,7 +39,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-	/*
+	/**
 	 * Register new user
 	 * 
 	 * @param: User and Role -> User is registered with associated roles
@@ -122,7 +122,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		return authenticationResponse;
 	}
 	
-	/*
+	/**
 	 * Authenticates user using password and email during login
 	 * 
 	 * @param: Authentication -> basic authentication is used by spring on user given email and password

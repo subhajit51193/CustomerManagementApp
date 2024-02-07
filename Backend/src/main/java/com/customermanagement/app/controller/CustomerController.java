@@ -24,7 +24,7 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	/*
+	/**
 	 * This API used by customers to get their personal details
 	 * 
 	 * @param: HttpServletRequest -> To get attribute id previously set during token authentication
@@ -39,7 +39,7 @@ public class CustomerController {
 		return new ResponseEntity<CustomerDTO>(customer,HttpStatus.OK);
 	}
 	
-	/*
+	/**
 	 * This API used by customers to update their personal details
 	 * 
 	 * @param: HttpServletRequest -> To get attribute id previously set during token authentication

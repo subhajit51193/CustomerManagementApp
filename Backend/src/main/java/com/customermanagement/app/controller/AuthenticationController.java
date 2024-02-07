@@ -22,7 +22,7 @@ public class AuthenticationController {
 	@Autowired
 	private AuthenticationService authenticationService;
 	
-	/*
+	/**
 	 * Registers a new users based on provided information
 	 * 
 	 * @param: User -> User object with details
@@ -39,7 +39,7 @@ public class AuthenticationController {
 		return new ResponseEntity<AuthenticationResponse>(authenticationResponse,HttpStatus.OK);
 	}
 	
-	/*
+	/**
 	 * Authenticates a new users based on provided information
 	 * 
 	 * @param: Request -> Authentication request containing email and password

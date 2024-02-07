@@ -60,7 +60,7 @@ public class ConfigurationBeans {
         return config.getAuthenticationManager();
     }
 	
-	/*
+	/**
 	 * This is for CORS configuration globally
 	 */
 	@Bean

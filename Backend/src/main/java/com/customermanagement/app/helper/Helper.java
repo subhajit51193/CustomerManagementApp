@@ -11,13 +11,13 @@ import com.customermanagement.app.model.CustomerDTO;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
-/*
+/**
  * This class contains some repetitive logics which are used in the application 
  */
 @Component
 public class Helper {
 
-	/*
+	/**
 	 * Creates a random string for Id
 	 */
 	public String createRandomStringId() {
@@ -43,7 +43,7 @@ public class Helper {
 		return dto;
 	}
 	
-	/*
+	/**
 	 * Creates a cookie and returns authentication response
 	 * 
 	 * @param Customer -> Customer object with necessary details

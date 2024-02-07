@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 	@Autowired
 	private Helper helper;
 	
-	/*
+	/**
 	 * This method is by spring to loading user details based on provided
 	 * email at the time of log in
 	 * 
@@ -68,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 		}
 	}
 
-	/*
+	/**
 	 * This method provides customer details based on id
 	 * 
 	 * @param: String -> customerId 
@@ -133,7 +133,7 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 		return dto;
 	}
 
-	/*
+	/**
 	 * This method provides all customer details stored in database
 	 * 
 	 * @return: List<CustomerDTO> -> List of Customized object with customer details
@@ -152,7 +152,7 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 		return dtoList;
 	}
 
-	/*
+	/**
 	 * This method deletes customer details based on id from database
 	 * 
 	 * @param: String -> customerId 
@@ -177,7 +177,7 @@ public class CustomerServiceImpl implements CustomerService,UserDetailsService{
 	}
 
 	
-	/*
+	/**
 	 * Get all customers with pagination and sorting
 	 * 
 	 * @param: int -> pages
